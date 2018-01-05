@@ -1,10 +1,12 @@
-var AliMNS = require("ali-mns")
+var AliMNS = require('ali-mns')
 
 class MessageQueue {
-  constructor(queueConfig) {
+  constructor (queueConfig) {
     const { mqName, accountId, keyId, keySecret, queueRegion } = queueConfig
-    this.account = new AliMNS.Account(accountId, keyId, keySecret)
+    const account = new AliMNS.Account(accountId, keyId, keySecret)
     this.mq = new AliMNS.MQ(mqName, account, queueRegion)
+
+    this.account = account
   }
 }
 
@@ -14,11 +16,11 @@ const getInstance = (mqName, options) => {
     accountId: options.accountId,
     keyId: options.keyId,
     keySecret: options.keySecret,
-    queueRegion: options.queueRegion,
+    queueRegion: options.queueRegion
   })
 }
 
 export {
   getInstance,
-  MessageQueue,
+  MessageQueue
 }
