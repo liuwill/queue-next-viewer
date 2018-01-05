@@ -1,7 +1,6 @@
-const { globalConfig } = require('../loader')
+// const productionService = require('../service/product.service')
 
 exports.getQueueInfo = (req, res) => {
-  console.log(globalConfig)
   const jsonData = { status: 'json', params: req.query }
   res.json(jsonData)
 }
