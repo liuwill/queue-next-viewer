@@ -1,17 +1,17 @@
 const express = require('express')
 const next = require('next')
 const router = require('./server/router')
+const task = require('./server/task')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
-const productionService = require('./server/service/product.service')
-
 app.prepare().then(() => {
   const server = express()
 
   router(server, app)
+  task.install(server, app)
   // // custom route if need
   // server.get('/custom', (req, res) =>
   //   app.render(req, res, '/custom', {
@@ -33,13 +33,5 @@ app.prepare().then(() => {
       throw err
     }
     console.log('> Ready on http://localhost:3000') // eslint-disable-line no-console
-
-    const mqHandler = productionService.getMessageQueue('test-queue-feature').getMqHandle()
-    mqHandler.then(function(mq) {
-      mq.recvP(5).then(function(data){
-        testTarget = data.Message.MessageBody
-        console.log(data, 'boot')
-      })
-    })
   })
 })
