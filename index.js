@@ -6,6 +6,8 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
+const productionService = require('./server/service/product.service')
+
 app.prepare().then(() => {
   const server = express()
 
@@ -31,5 +33,13 @@ app.prepare().then(() => {
       throw err
     }
     console.log('> Ready on http://localhost:3000') // eslint-disable-line no-console
+
+    const mqHandler = productionService.getMessageQueue('test-queue-feature').getMqHandle()
+    mqHandler.then(function(mq) {
+      mq.recvP(5).then(function(data){
+        testTarget = data.Message.MessageBody
+        console.log(data, 'boot')
+      })
+    })
   })
 })
