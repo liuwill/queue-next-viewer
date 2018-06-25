@@ -28,7 +28,7 @@ class MessageQueue {
 
 const queueMap = {}
 const getInstance = (mqName, options) => {
-  if (!queueMap[mqName]){
+  if (!queueMap[mqName]) {
     queueMap[mqName] = new MessageQueue({
       mqName,
       accountId: options.accountId,

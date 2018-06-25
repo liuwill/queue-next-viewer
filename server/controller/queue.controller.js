@@ -5,7 +5,7 @@ exports.getQueueInfo = (req, res) => {
   const mqHandler = productionService.getMessageQueue('test-queue-feature').getMqHandle()
 
   mqHandler.then(function (mq) {
-    mq.sendP("testA").then(function (data) {
+    mq.sendP('testA').then(function (data) {
       console.log(data)
       // return mq.recvP(5).then(function(data){
       //   testTarget = data.Message.MessageBody

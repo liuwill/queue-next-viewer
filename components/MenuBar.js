@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react' // eslint-disable-line
 import Router from 'next/router'
 import { TabBar, Icon } from 'antd-mobile'
 
