@@ -1,11 +1,22 @@
 {
   "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "extends": "standard",
   "env": {
     "browser": true,
     "node": true,
     "es6": true
   },
+  "plugins": [
+    "html",
+    "react"
+  ],
   "rules": {
     "no-param-reassign": 0,
     "no-extra-semi": 1,
@@ -22,6 +33,7 @@
     "key-spacing": [ 1, {
       "beforeColon": false,
       "afterColon": true
-    }]
+    }],
+    "react/jsx-uses-vars": 1
   }
 }
