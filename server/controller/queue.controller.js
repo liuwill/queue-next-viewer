@@ -11,13 +11,21 @@ exports.getQueueInfo = (req, res) => {
       //   testTarget = data.Message.MessageBody
       //   console.log(testTarget, 'sync')
       // })
+      jsonData.data = data
+      res.json(jsonData)
     })
   })
-  res.json(jsonData)
 }
 
 exports.writeMessageTo = (req, res) => {
-  console.log(req)
+  // console.log(req)
   const jsonData = { status: 'json', params: req.query }
-  res.json(jsonData)
+  const mqHandler = productionService.getMessageQueue('test-queue-feature').getMqHandle()
+  mqHandler.then(function (mq) {
+    mq.recvP(5).then(function (data) {
+      console.log(data)
+      jsonData['data'] = data
+      res.json(jsonData)
+    }, console.error)
+  })
 }
